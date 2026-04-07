@@ -328,22 +328,51 @@
       localStorage.setItem("lang", savedLang);
     }
     
-    if (savedLang !== 'vi') {
-      setLangCookie(savedLang);
-    }
+    // Luôn ghi đè cookie sớm nhất có thể để Google Element quét thấy ngay khi load
+    setLangCookie(savedLang);
     
-    // Cập nhật UI ngay lập tức
+    // Cập nhật UI menu ngay lập tức
     if(document.readyState === 'loading') {
        document.addEventListener('DOMContentLoaded', () => updateLangUI(savedLang));
     } else {
        updateLangUI(savedLang);
     }
 
-    // Lazy load the translation API after a small delay
-    window.addEventListener('load', () => {
-      setTimeout(loadGoogleTranslateScript, 1200);
-      setInterval(hideGoogleBanner, 1000);
-    });
+    // Cơ chế tải script thông minh: 
+    // Nếu là tiếng Việt (mặc định) -> trì hoãn 1.5s để ưu tiên tốc độ hiển thị.
+    // Nếu là ngôn ngữ khác -> tải ngay lập tức để người dùng không thấy tiếng Việt bị flicker.
+    const loadNow = (savedLang !== 'vi');
+    const delay = loadNow ? 100 : 1200;
+
+    const startTranslation = () => {
+      loadGoogleTranslateScript();
+      
+      // Một số trường hợp cookie không tự kích hoạt (đặc biệt khi chạy local)
+      // Ta sẽ đợi script load xong và ép nó chọn đúng ngôn ngữ
+      if (savedLang !== 'vi') {
+        let attempts = 0;
+        const forceTranslate = setInterval(() => {
+          const select = document.querySelector(".goog-te-combo");
+          if (select) {
+            if (select.value !== savedLang) {
+              select.value = savedLang;
+              select.dispatchEvent(new Event("change"));
+            }
+            clearInterval(forceTranslate);
+          }
+          if (attempts++ > 40) clearInterval(forceTranslate); // Max 4s
+        }, 100);
+      }
+    };
+
+    if (document.readyState === 'complete') {
+      setTimeout(startTranslation, delay);
+    } else {
+      window.addEventListener('load', () => setTimeout(startTranslation, delay));
+    }
+
+    // Ẩn các thành phần thừa của Google Translate
+    setInterval(hideGoogleBanner, 700);
   })();
 
 })();
