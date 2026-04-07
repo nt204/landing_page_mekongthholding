@@ -2346,18 +2346,18 @@ n-read-more:hover {
 }
 
 @media (max-width: 768px) {
-  .hero .icon-box {
-    padding: 20px 15px;
+  .icon-box, .service-item {
+    padding: 20px 15px !important;
   }
-  .hero .icon-box h3 {
-    font-size: 17px;
+  .icon-box h3, .service-item h3, .service-item h4 {
+    font-size: 17px !important;
   }
-  .hero .icon-box i {
-    font-size: 26px;
+  .icon-box i, .service-item .icon i {
+    font-size: 26px !important;
   }
-  .hero .icon-box p {
-     font-size: 14px;
-     margin-top: 10px;
+  .icon-box p, .service-item p {
+     font-size: 14px !important;
+     margin-top: 10px !important;
   }
 }
 
