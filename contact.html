@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Liên hệ - <span translate="no">Mekong TH Holding</span></title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <style>
+    /* Premium Contact Form Styles */
+    .contact-page .info-item {
+      padding: 30px;
+      background: #fff;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+      border-radius: 12px;
+      margin-bottom: 25px;
+      transition: 0.3s;
+    }
+    .contact-page .info-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 50px rgba(206, 172, 18, 0.1);
+    }
+    .contact-page .info-item i {
+      font-size: 24px;
+      color: #ceac12;
+      float: left;
+      width: 54px;
+      height: 54px;
+      background: rgba(206, 172, 18, 0.1);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50px;
+      transition: 0.3s;
+    }
+    .contact-page .info-item:hover i {
+      background: #ceac12;
+      color: #fff;
+    }
+
+    .form-control {
+      padding: 12px 20px;
+      border: 1px solid #eee;
+      border-radius: 10px;
+      background: #fdfdfd;
+      transition: all 0.3s ease;
+    }
+    .form-control:focus {
+      border-color: #ceac12;
+      box-shadow: 0 0 15px rgba(206, 172, 18, 0.1);
+      background: #fff;
+    }
+
+    .btn-toggle-contact {
+      border-width: 2px;
+      transition: all 0.3s ease;
+    }
+    .btn-toggle-contact.active {
+      transform: scale(1.05);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    }
+
+    .contact-form-container {
+      background: #fff;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.06);
+    }
+
+    /* Custom Swal */
+    .swal2-popup-custom {
+      border-radius: 20px !important;
+      padding: 2em !important;
+    }
+    .swal2-title-custom {
+      color: #222 !important;
+      font-family: 'Poppins', sans-serif !important;
+      font-weight: 700 !important;
+    }
+  </style>
+
+  <!-- Main CSS File -->
+  <link href="assets/css/main.css" rel="stylesheet">
+</head>
+
+<body class="contact-page">
+
+  <header id="header" class="header d-flex align-items-center fixed-top">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
+
+      <a href="index.html" class="logo d-flex align-items-center me-auto me-lg-0" translate="no">
+        <img src="assets/img/logo.png" alt="Logo Mekong TH Holding">
+      </a>
+
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="index.html" data-i18n="nav-home">Trang chủ<br></a></li>
+          <li><a href="about.html" data-i18n="nav-about">Giới thiệu</a></li>
+          <li class="dropdown"><a href="services.html"><span data-i18n="nav-services">Dịch vụ</span>
+              <i class="bi bi-chevron-down toggle-dropdown"></i>
+            </a>
+            <ul>
+              <li><a href="sales-policy.html">Chính sách bán hàng</a></li>
+              <li><a href="production-service.html">Dịch vụ sản xuất hàng hóa</a></li>
+              <li><a href="shipping-service.html">Dịch vụ vận chuyển</a></li>
+              <li><a href="digital-marketing.html">Digital marketing</a></li>
+              <li><a href="ai-solutions.html">Giải pháp AI và công nghệ</a></li>
+              <li><a href="fulfillment-service.html">Dịch vụ vận chuyển FULLFILLMENT</a></li>
+            </ul>
+          </li>
+          <li><a href="portfolio.html" data-i18n="nav-faq">Hỏi đáp</a></li>
+          <li><a href="contact.html" class="active" data-i18n="nav-contact">Liên hệ</a></li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+
+      <div class="dropdown language-switcher">
+        <a class="btn-getstarted" href="javascript:void(0)">
+          <i class="bi bi-globe me-1"></i> <span id="current-lang">🇻🇳 Tiếng Việt</span>
+        </a>
+        <div class="dropdown-content">
+          <a href="javascript:void(0)" onclick="changeLang('vi')">🇻🇳 Tiếng Việt</a>
+          <a href="javascript:void(0)" onclick="changeLang('lo')">🇱🇦 Tiếng Lào</a>
+          <a href="javascript:void(0)" onclick="changeLang('th')">🇹🇭 Tiếng Thái</a>
+          <a href="javascript:void(0)" onclick="changeLang('km')">🇰🇭 Tiếng Campuchia</a>
+        </div>
+      </div>
+
+
+      </div>
+  </header>
+
+  <main class="main">
+
+    <!-- Page Title -->
+    <div class="page-title" data-aos="fade">
+      <div class="heading">
+        <div class="container">
+          <div class="row d-flex justify-content-center text-center">
+            <div class="col-lg-8">
+              <h1 class="display-4 fw-bold" style="color: #ffffff; text-shadow: 0 0 10px rgba(255,255,255,0.2);">
+                Liên hệ
+              </h1>
+
+              <p class="mb-0 fs-5" style="color: #ffffff; opacity: 0.9;">
+                Kết nối với chúng tôi để bắt đầu hành trình thành công của bạn.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <nav class="breadcrumbs">
+        <div class="container">
+          <ol>
+            <li><a href="index.html">Trang chủ</a></li>
+            <li class="current">Liên hệ</li>
+          </ol>
+        </div>
+      </nav>
+    </div><!-- End Page Title -->
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact section">
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="mb-5" data-aos="fade-up" data-aos-delay="200">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3864.6520852390577!2d105.76507048164619!3d21.031440837732376!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x313454ba0eadfac1%3A0xc3ddcedcd782e6ad!2zc-G7kSAyIE5nLiA0OSDEkC4gTMOqIMSQ4bupYyBUaOG7jSwgTeG7uSDEkMOsbmgsIFThu6sgTGnDqm0sIEjDoCBO4buZaSwgVmlldG5hbQ!5e1!3m2!1sen!2sus!4v1775531928450!5m2!1sen!2sus"
+            width="100%" height="350" style="border:0; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);" frameborder="0" allowfullscreen="" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div><!-- End Google Maps -->
+
+        <div class="row gy-4">
+
+          <div class="col-lg-4">
+            <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="300">
+              <i class="bi bi-geo-alt flex-shrink-0"></i>
+              <div>
+                <h3>Địa chỉ</h3>
+                <p>Toà nhà Phú Thắng, số 2 , Ngõ 49, Lê Đức Thọ, Nam Từ Liên, Hà Nội</p>
+              </div>
+            </div><!-- End Info Item -->
+
+            <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="400">
+              <i class="bi bi-telephone flex-shrink-0"></i>
+              <div>
+                <h3>Điện thoại</h3>
+                <p>055 941 2722</p>
+              </div>
+            </div><!-- End Info Item -->
+
+            <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="500">
+              <i class="bi bi-envelope flex-shrink-0"></i>
+              <div>
+                <h3>Email</h3>
+                <p>mekongholdinght@gmail.com</p>
+              </div>
+            </div><!-- End Info Item -->
+
+          </div>
+
+          <div class="col-lg-8">
+            <div class="d-flex justify-content-center gap-3 mb-5" data-aos="fade-up">
+              <button class="btn btn-primary active px-5 py-3 rounded-pill fw-bold btn-toggle-contact shadow-sm" id="btnEmail" onclick="toggleContact('email')">
+                <i class="bi bi-envelope me-2"></i> Liên hệ Email
+              </button>
+              <button class="btn btn-outline-info px-5 py-3 rounded-pill fw-bold btn-toggle-contact shadow-sm" id="btnTele" onclick="toggleContact('tele')">
+                <i class="bi bi-telegram me-2"></i> Liên hệ Telegram
+              </button>
+            </div>
+
+            <div class="contact-form-container" data-aos="fade-up" data-aos-delay="200">
+              <div id="emailSection" class="row justify-content-center">
+                <div class="col-12">
+                  <form id="emailForm" class="contact-form-content">
+                    <h5 class="text-center fw-bold mb-4" style="color: #ceac12;">Yêu Cầu Tư Vấn Qua Email</h5>
+                    <div class="row gy-3">
+                      <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                          <input type="text" name="user_name" class="form-control" id="nameInput" placeholder="Họ tên của bạn" required>
+                          <label for="nameInput"><i class="bi bi-person me-2"></i>Họ tên của bạn</label>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                          <input type="tel" class="form-control" name="user_phone" id="phoneInput" pattern="[0-9]{10}" placeholder="Số điện thoại" required>
+                          <label for="phoneInput"><i class="bi bi-phone me-2"></i>Số điện thoại (10 số)</label>
+                        </div>
+                      </div>
+                      <div class="col-12">
+                        <div class="form-floating mb-3">
+                          <input type="email" name="user_email" class="form-control" id="emailInput" placeholder="Email liên hệ" required>
+                          <label for="emailInput"><i class="bi bi-envelope me-2"></i>Email liên hệ</label>
+                        </div>
+                      </div>
+                      <div class="col-12">
+                        <div class="form-floating mb-3">
+                          <textarea name="user_message" class="form-control" id="msgInput" style="height: 120px" placeholder="Nội dung cần tư vấn"></textarea>
+                          <label for="msgInput"><i class="bi bi-chat-dots me-2"></i>Bạn cần chúng tôi tư vấn gì?</label>
+                        </div>
+                      </div>
+                      <div class="col-12 text-center">
+                        <button type="submit" class="btn btn-primary px-5 py-3 fw-bold rounded-pill shadow-sm transition w-100" style="background: #ceac12; border: none; font-size: 1.1rem;">
+                          GỬI NGAY CHO NHÂN VIÊN <i class="bi bi-send-fill ms-2"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+
+              <div id="teleSection" class="row justify-content-center d-none">
+                <div class="col-12">
+                  <form id="teleForm" class="contact-form-content">
+                    <h5 class="text-center fw-bold mb-4" style="color: #0088cc;">Tư Vấn Nhanh Qua Telegram</h5>
+                    <div class="row gy-3">
+                      <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                          <input type="text" name="Khách Hàng" class="form-control" id="teleName" placeholder="Họ tên của bạn" required>
+                          <label for="teleName"><i class="bi bi-person me-2"></i>Họ tên của bạn</label>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                          <input type="tel" name="Số Điện Thoại" class="form-control" id="telePhone" placeholder="Số điện thoại" required>
+                          <label for="telePhone"><i class="bi bi-phone me-2"></i>Số điện thoại</label>
+                        </div>
+                      </div>
+                      <div class="col-12">
+                        <div class="form-floating mb-3">
+                          <input type="email" name="Email" class="form-control" id="teleEmail" placeholder="Email liên hệ" required>
+                          <label for="teleEmail"><i class="bi bi-envelope me-2"></i>Email liên hệ</label>
+                        </div>
+                      </div>
+                      <div class="col-12">
+                        <div class="form-floating mb-3">
+                          <textarea name="Nội Dung" class="form-control" id="teleMsg" style="height: 120px" placeholder="Bạn cần hỗ trợ gì?"></textarea>
+                          <label for="teleMsg"><i class="bi bi-chat-dots me-2"></i>Nội dung cần hỗ trợ nhanh?</label>
+                        </div>
+                      </div>
+                      <div class="col-12">
+                        <button type="submit" class="btn btn-info px-5 py-3 fw-bold rounded-pill shadow-sm transition w-100 text-white" style="background: #0088cc; border: none; font-size: 1.1rem;">
+                          GỬI QUA TELEGRAM <i class="bi bi-telegram ms-2"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div><!-- End Contact Form -->
+
+        </div>
+
+      </div>
+
+    </section><!-- /Contact Section -->
+
+  </main>
+
+  <footer id="footer" class="footer dark-background">
+
+    <div class="footer-top">
+      <div class="container">
+        <div class="row gy-4">
+
+          <!-- Col 1: Về chúng tôi (Service Links) -->
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>Về chúng tôi</h4>
+            <ul>
+              <li><i class="bi bi-chevron-right"></i> <a href="sales-policy.html">Chính sách bán hàng</a></li>
+              <li><i class="bi bi-chevron-right"></i> <a href="fulfillment-service.html">Vận Chuyển FullFillMent</a>
+              </li>
+              <li><i class="bi bi-chevron-right"></i> <a href="ai-solutions.html">Giải pháp AI Và Công Nghệ</a>
+              </li>
+              <li><i class="bi bi-chevron-right"></i> <a href="digital-marketing.html">Tiếp thị kỹ thuật số</a>
+              </li>
+              <li><i class="bi bi-chevron-right"></i> <a href="production-service.html">Dịch Vụ Sản Xuất Hàng Hóa</a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Col 2: Trang chủ -->
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>Trang chủ</h4>
+            <ul>
+              <li><i class="bi bi-chevron-right"></i> <a href="index.html">Trang chủ</a></li>
+              <li><i class="bi bi-chevron-right"></i> <a href="about.html">Giới thiệu</a></li>
+              <li><i class="bi bi-chevron-right"></i> <a href="portfolio.html">Hỏi đáp</a></li>
+              <li><i class="bi bi-chevron-right"></i> <a href="contact.html">Liên hệ với chúng tôi</a></li>
+            </ul>
+          </div>
+
+          <!-- Col 3: Thông tin liên hệ -->
+          <div class="col-lg-3 col-md-6 footer-contact">
+            <h4>Thông tin liên hệ</h4>
+            <p><strong>Số điện thoại:</strong> 0559412722</p>
+            <p><strong>Email:</strong> mekongholdinght@gmail.com</p>
+            <p><strong>Địa chỉ:</strong> Toà nhà Phú Thắng, số 2 , Ngõ 49, Lê Đức Thọ, Nam Từ Liên, Hà Nội</p>
+            <div class="social-links d-flex mt-4">
+              <a href="https://facebook.com" target="_blank"><i class="bi bi-facebook"></i></a>
+              <a href="https://youtube.com" target="_blank"><i class="bi bi-youtube"></i></a>
+              <a href="https://zalo.me" target="_blank"><i class="bi bi-chat-dots-fill"></i></a>
+              <a href="https://tiktok.com" target="_blank"><i class="bi bi-tiktok"></i></a>
+            </div>
+          </div>
+
+          <!-- Col 4: Bản đồ -->
+          <div class="col-lg-3 col-md-6">
+            <h4>Bản đồ</h4>
+            <div class="google-map">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3864.6520852390577!2d105.76507048164619!3d21.031440837732376!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x313454ba0eadfac1%3A0xc3ddcedcd782e6ad!2zc-G7kSAyIE5nLiA0OSDEkC4gTMOqIMSQ4bupYyBUaOG7jSwgTeG7uSDEkMOsbmgsIFThu6sgTGnDqm0sIEjDoCBO4buZaSwgVmlldG5hbQ!5e1!3m2!1sen!2sus!4v1775531928450!5m2!1sen!2sus"
+                referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="copyright">
+      <div class="container text-center">
+        <p>© <span>Copyright</span> <strong class="px-1 sitename" translate="no">Mekong TH Holding</strong> <span>All Rights
+            Reserved</span></p>
+      </div>
+    </div>
+
+  </footer>
+
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Preloader -->
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
+  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
+
+  <!-- Google Translate Element (Hidden) -->
+  
+
+  
+  <div id="google_translate_element" style="position: absolute; top: -9999px; left: -9999px; visibility: hidden;"></div>
+  <script src="assets/js/main.js"></script>
+  <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+  
+
+  <script>
+    const handleFormSubmit = (e) => {
+      e.preventDefault();
+      const form = e.target;
+
+      // 1. Lấy thông tin thời gian chung
+      const now = new Date();
+      const formattedTime = now.toLocaleTimeString('vi-VN') + " " + now.toLocaleDateString('vi-VN');
+
+      // 2. Cấu hình các URL
+      const googleSheetURL = 'https://script.google.com/macros/s/AKfycbwDjAIYdcdh_jtRpJ2EyWamSErYaZhql2L31UDHvUU-HdHGwltNFYFwqbfXMAfTsdk5hg/exec';
+      const formspreeURL = "https://formspree.io/f/xdawrnkk";
+      const botToken = "8603752192:AAE7c1E_urBShOVtOvGAVxKzhSFMG9b4W3M";
+      const chatId = "6685083277";
+
+      // 3. Phân loại dữ liệu dựa trên Form ID
+      let name, phone, email, message;
+      let requests = [];
+
+      if (form.id === 'teleForm') {
+        // --- XỬ LÝ CHO TELEGRAM ---
+        name = form.querySelector('[name="Khách Hàng"]').value;
+        phone = form.querySelector('[name="Số Điện Thoại"]').value;
+        email = form.querySelector('[name="Email"]').value;
+        message = form.querySelector('[name="Nội Dung"]').value || "Không có nội dung";
+
+        const teleText = `🔔 KHÁCH TELEGRAM MỚI!\n━━━━━━━━━━━━━━━\n⏰: ${formattedTime}\n👤: ${name}\n📞: ${phone}\n📧: ${email}\n💬: ${message}`;
+        const teleUrl = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(teleText)}`;
+
+        requests.push(fetch(teleUrl)); // Gửi Tele
+      } else {
+        // --- XỬ LÝ CHO EMAIL ---
+        const formData = new FormData(form);
+        name = formData.get('user_name');
+        phone = formData.get('user_phone');
+        email = formData.get('user_email');
+        message = formData.get('user_message') || "Không có nội dung";
+
+        requests.push(fetch(formspreeURL, { method: 'POST', body: formData, headers: { 'Accept': 'application/json' } })); // Gửi Formspree
+      }
+
+      // 4. Chuẩn bị dữ liệu gửi Google Sheets (Cả 2 đều gửi về Sheet)
+      const sheetParams = new URLSearchParams();
+      sheetParams.append('time', formattedTime);
+      sheetParams.append('name', name);
+      sheetParams.append('phone', phone);
+      sheetParams.append('email', email);
+      sheetParams.append('message', message);
+
+      requests.push(fetch(googleSheetURL, { method: 'POST', body: sheetParams, headers: { "Content-Type": "application/x-www-form-urlencoded" } }));
+
+      // 5. Thực thi gửi tất cả đồng thời
+      Swal.fire({
+        title: 'Đang xử lý...',
+        text: 'Vui lòng chờ trong giây lát',
+        allowOutsideClick: false,
+        showConfirmButton: false,
+        didOpen: () => {
+          Swal.showLoading();
+        },
+        customClass: {
+          popup: 'swal2-popup-custom',
+          title: 'swal2-title-custom'
+        }
+      });
+
+      Promise.all(requests)
+        .then(() => {
+          Swal.fire({
+            title: 'Gửi Thành Công!',
+            text: 'Cảm ơn bạn, chuyên viên sẽ liên hệ lại ngay trong ít phút.',
+            icon: 'success',
+            iconColor: '#ceac12',
+            confirmButtonText: 'Đóng',
+            confirmButtonColor: '#ceac12',
+            background: '#fff',
+            color: '#333',
+            customClass: {
+              popup: 'swal2-popup-custom',
+              title: 'swal2-title-custom'
+            }
+          }).then(() => {
+            form.reset();
+            window.location.href = "index.html";
+          });
+        })
+        .catch(() => {
+          Swal.fire({
+            title: 'Lỗi Hệ Thống!',
+            text: 'Không thể gửi dữ liệu lúc này, vui lòng thử lại sau.',
+            icon: 'error',
+            confirmButtonText: 'Thử lại',
+            confirmButtonColor: '#d33'
+          });
+        });
+    };
+
+    // Gán sự kiện cho cả 2 form (Email và Tele)
+    document.addEventListener('DOMContentLoaded', () => {
+      const emailForm = document.getElementById('emailForm');
+      const teleForm = document.getElementById('teleForm');
+
+      if (emailForm) emailForm.addEventListener('submit', handleFormSubmit);
+      if (teleForm) teleForm.addEventListener('submit', handleFormSubmit);
+    });
+
+    function toggleContact(type) {
+      const emailSection = document.getElementById('emailSection');
+      const teleSection = document.getElementById('teleSection');
+      const btnEmail = document.getElementById('btnEmail');
+      const btnTele = document.getElementById('btnTele');
+
+      if (type === 'email') {
+        // Hiện Email - Ẩn Tele
+        emailSection.classList.remove('d-none');
+        teleSection.classList.add('d-none');
+
+        // Cập nhật trạng thái nút bấm
+        btnEmail.classList.add('active', 'btn-primary');
+        btnEmail.classList.remove('btn-outline-primary');
+
+        btnTele.classList.remove('active', 'btn-info', 'text-white');
+        btnTele.classList.add('btn-outline-info');
+      } else {
+        // Hiện Tele - Ẩn Email
+        teleSection.classList.remove('d-none');
+        emailSection.classList.add('d-none');
+
+        // Cập nhật trạng thái nút bấm
+        btnTele.classList.add('active', 'btn-info', 'text-white');
+        btnTele.classList.remove('btn-outline-info');
+
+        btnEmail.classList.remove('active', 'btn-primary');
+        btnEmail.classList.add('btn-outline-primary');
+      }
+    }
+  </script>
+
+</body>
+
+</html>
