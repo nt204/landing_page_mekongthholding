@@ -2341,8 +2341,23 @@ n-read-more:hover {
 
 @media (max-width: 1200px) {
   .language-switcher {
-    margin: 10px 0;
-    order: -1;
+    margin: 5px 15px 5px 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero .icon-box {
+    padding: 20px 15px;
+  }
+  .hero .icon-box h3 {
+    font-size: 17px;
+  }
+  .hero .icon-box i {
+    font-size: 26px;
+  }
+  .hero .icon-box p {
+     font-size: 14px;
+     margin-top: 10px;
   }
 }
 

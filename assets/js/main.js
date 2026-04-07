@@ -65,8 +65,16 @@
    */
   const preloader = document.querySelector('#preloader');
   if (preloader) {
+    // Mặc định trình duyệt đợi toàn bộ video 8MB tải xong mới chạy event 'load'
+    // Do đó ta sẽ gỡ preloader sớm ngay khi cấu trúc HTML vừa sẵn sàng để hiển thị luôn
+    document.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => {
+        if(preloader.parentNode) preloader.remove();
+      }, 100);
+    });
+    
     window.addEventListener('load', () => {
-      preloader.remove();
+      if(preloader.parentNode) preloader.remove();
     });
   }
 
@@ -96,13 +104,24 @@
    */
   function aosInit() {
     AOS.init({
-      duration: 600,
-      easing: 'ease-in-out',
+      duration: 800,
+      easing: 'ease-out-cubic',
       once: true,
-      mirror: false
+      mirror: false,
+      offset: 50, // Khởi động sớm hơn khi vừa chạm
+      disable: window.innerWidth < 768 // Vô hiệu hoá scroll animation trên mobile giúp trải nghiệm mượt, không giật lag
     });
   }
-  window.addEventListener('load', aosInit);
+  
+  // Chạy hoạt ảnh ngay khi đọc xong HTML (Không đợi mòn mỏi load xong ảnh/video)
+  document.addEventListener('DOMContentLoaded', aosInit);
+  
+  // Tính toán lại toạ độ phòng khi ảnh load làm khung hình dịch chuyển
+  window.addEventListener('load', () => {
+    if (typeof AOS !== 'undefined') {
+      AOS.refresh();
+    }
+  });
 
   /**
    * Init swiper sliders
