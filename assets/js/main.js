@@ -285,12 +285,23 @@
   }
 
   function setLangCookie(lang) {
-    const val = (lang === 'vi') ? "" : "/vi/" + lang;
-    const expires = (lang === 'vi') ? "Thu, 01 Jan 1970 00:00:00 UTC" : "";
+    const pastDate = "Thu, 01 Jan 1970 00:00:00 UTC";
+    const domain = window.location.hostname;
+    const domains = ["", domain, "." + domain];
+    
+    // Xóa sạch mọi cookie cũ ở mọi cấp độ domain để tránh xung đột
+    domains.forEach(d => {
+      const dPart = d ? `; domain=${d}` : "";
+      document.cookie = `googtrans=; expires=${pastDate}; path=/;${dPart}`;
+    });
 
-    document.cookie = `googtrans=${val}; expires=${expires}; path=/;`;
-    if (window.location.hostname) {
-      document.cookie = `googtrans=${val}; expires=${expires}; path=/; domain=${window.location.hostname};`;
+    if (lang && lang !== 'vi') {
+      const val = "/vi/" + lang;
+      document.cookie = `googtrans=${val}; path=/;`;
+      if (domain) {
+        document.cookie = `googtrans=${val}; path=/; domain=${domain};`;
+        document.cookie = `googtrans=${val}; path=/; domain=.${domain};`;
+      }
     }
   }
 

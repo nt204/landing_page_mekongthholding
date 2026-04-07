@@ -203,19 +203,44 @@ h6 {
   background: var(--accent-color);
 }
 
-@media (max-width: 1200px) {
-  .header .logo {
-    order: 1;
+@media (max-width: 1199px) {
+  .header .container-fluid {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
   }
 
-  .header .btn-getstarted {
-    order: 2;
-    margin: 0 15px 0 0;
-    padding: 6px 15px;
+  .mobile-nav-toggle {
+    order: 1 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    flex: 0 0 40px;
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  .header .logo {
+    order: 2 !important;
+    margin: 0 auto !important;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+  }
+
+  .header .logo img {
+    max-height: 35px;
+  }
+
+  .language-switcher {
+    order: 3 !important;
+    margin: 0 !important;
+    flex: 0 0 auto;
+    display: flex;
+    justify-content: flex-end;
   }
 
   .header .navmenu {
-    order: 3;
+    order: 4;
   }
 }
 
