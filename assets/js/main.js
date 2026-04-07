@@ -15,11 +15,11 @@
   const preloader = document.querySelector('#preloader');
   if (preloader) {
     const hidePreloader = () => {
-      if(preloader.parentNode) {
+      if (preloader.parentNode) {
         preloader.style.transition = 'opacity 0.4s ease';
         preloader.style.opacity = '0';
         setTimeout(() => {
-           if(preloader.parentNode) preloader.remove();
+          if (preloader.parentNode) preloader.remove();
         }, 400);
       }
     };
@@ -51,7 +51,7 @@
   const mobileNavToggleBtn = document.querySelector('.mobile-nav-toggle');
   function mobileNavToogle() {
     document.querySelector('body').classList.toggle('mobile-nav-active');
-    if(mobileNavToggleBtn) {
+    if (mobileNavToggleBtn) {
       mobileNavToggleBtn.classList.toggle('bi-list');
       mobileNavToggleBtn.classList.toggle('bi-x');
     }
@@ -117,16 +117,16 @@
       });
     }
   }
-  
+
   if (document.readyState === 'interactive' || document.readyState === 'complete') {
     aosInit();
   } else {
     document.addEventListener('DOMContentLoaded', aosInit);
   }
-  
+
   window.addEventListener('load', () => {
     if (typeof AOS !== 'undefined') {
-       setTimeout(() => AOS.refresh(), 400);
+      setTimeout(() => AOS.refresh(), 400);
     }
   });
 
@@ -144,7 +144,7 @@
         } else {
           new Swiper(swiperElement, config);
         }
-      } catch(e) {}
+      } catch (e) { }
     });
   }
   document.addEventListener("DOMContentLoaded", initSwiper);
@@ -182,7 +182,7 @@
       filters.addEventListener('click', function () {
         isotopeItem.querySelector('.isotope-filters .filter-active').classList.remove('filter-active');
         this.classList.add('filter-active');
-        if(initIsotope) {
+        if (initIsotope) {
           initIsotope.arrange({ filter: this.getAttribute('data-filter') });
         }
         if (typeof AOS !== 'undefined') { AOS.refresh(); }
@@ -263,8 +263,8 @@
     document.body.style.position = "static";
   }
 
-  window.googleTranslateElementInit = function() {
-    if(typeof google !== 'undefined' && google.translate) {
+  window.googleTranslateElementInit = function () {
+    if (typeof google !== 'undefined' && google.translate) {
       new google.translate.TranslateElement({
         pageLanguage: 'vi',
         includedLanguages: 'vi,lo,th,km',
@@ -275,7 +275,7 @@
 
   // Performance: Lazy loading the heavy Google Translate script
   function loadGoogleTranslateScript() {
-    if(!document.getElementById('google-translate-script')) {
+    if (!document.getElementById('google-translate-script')) {
       const script = document.createElement('script');
       script.id = 'google-translate-script';
       script.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
@@ -287,7 +287,7 @@
   function setLangCookie(lang) {
     const val = (lang === 'vi') ? "" : "/vi/" + lang;
     const expires = (lang === 'vi') ? "Thu, 01 Jan 1970 00:00:00 UTC" : "";
-    
+
     document.cookie = `googtrans=${val}; expires=${expires}; path=/;`;
     if (window.location.hostname) {
       document.cookie = `googtrans=${val}; expires=${expires}; path=/; domain=${window.location.hostname};`;
@@ -299,7 +299,7 @@
     localStorage.setItem("lang", lang);
     updateLangUI(lang);
     setLangCookie(lang);
-    
+
     const select = document.querySelector(".goog-te-combo");
     if (select) {
       select.value = lang;
@@ -307,10 +307,10 @@
     } else {
       window.location.reload();
     }
-    
+
     hideGoogleBanner();
     setTimeout(hideGoogleBanner, 500);
-    
+
     // Mobile Nav fix
     if (document.body.classList.contains('mobile-nav-active')) {
       mobileNavToogle();
@@ -327,52 +327,23 @@
       savedLang = urlParams.get('lang');
       localStorage.setItem("lang", savedLang);
     }
-    
-    // Luôn ghi đè cookie sớm nhất có thể để Google Element quét thấy ngay khi load
-    setLangCookie(savedLang);
-    
-    // Cập nhật UI menu ngay lập tức
-    if(document.readyState === 'loading') {
-       document.addEventListener('DOMContentLoaded', () => updateLangUI(savedLang));
-    } else {
-       updateLangUI(savedLang);
+
+    if (savedLang !== 'vi') {
+      setLangCookie(savedLang);
     }
 
-    // Cơ chế tải script thông minh: 
-    // Nếu là tiếng Việt (mặc định) -> trì hoãn 1.5s để ưu tiên tốc độ hiển thị.
-    // Nếu là ngôn ngữ khác -> tải ngay lập tức để người dùng không thấy tiếng Việt bị flicker.
-    const loadNow = (savedLang !== 'vi');
-    const delay = loadNow ? 100 : 1200;
-
-    const startTranslation = () => {
-      loadGoogleTranslateScript();
-      
-      // Một số trường hợp cookie không tự kích hoạt (đặc biệt khi chạy local)
-      // Ta sẽ đợi script load xong và ép nó chọn đúng ngôn ngữ
-      if (savedLang !== 'vi') {
-        let attempts = 0;
-        const forceTranslate = setInterval(() => {
-          const select = document.querySelector(".goog-te-combo");
-          if (select) {
-            if (select.value !== savedLang) {
-              select.value = savedLang;
-              select.dispatchEvent(new Event("change"));
-            }
-            clearInterval(forceTranslate);
-          }
-          if (attempts++ > 40) clearInterval(forceTranslate); // Max 4s
-        }, 100);
-      }
-    };
-
-    if (document.readyState === 'complete') {
-      setTimeout(startTranslation, delay);
+    // Cập nhật UI ngay lập tức
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => updateLangUI(savedLang));
     } else {
-      window.addEventListener('load', () => setTimeout(startTranslation, delay));
+      updateLangUI(savedLang);
     }
 
-    // Ẩn các thành phần thừa của Google Translate
-    setInterval(hideGoogleBanner, 700);
+    // Lazy load the translation API after a small delay
+    window.addEventListener('load', () => {
+      setTimeout(loadGoogleTranslateScript, 1200);
+      setInterval(hideGoogleBanner, 1000);
+    });
   })();
 
 })();
