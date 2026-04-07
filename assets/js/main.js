@@ -10,12 +10,35 @@
   "use strict";
 
   /**
+   * Preloader: Cực nhanh, giải phóng màn hình sớm nhất có thể
+   */
+  const preloader = document.querySelector('#preloader');
+  if (preloader) {
+    const hidePreloader = () => {
+      if(preloader.parentNode) {
+        preloader.style.transition = 'opacity 0.4s ease';
+        preloader.style.opacity = '0';
+        setTimeout(() => {
+           if(preloader.parentNode) preloader.remove();
+        }, 400);
+      }
+    };
+    // Nếu trang đã tải xong hoặc đã sẵn sàng tương tác, gỡ bỏ preloader ngay
+    if (document.readyState === 'complete' || document.readyState === 'interactive') {
+      hidePreloader();
+    } else {
+      document.addEventListener('DOMContentLoaded', hidePreloader);
+      window.addEventListener('load', hidePreloader);
+    }
+  }
+
+  /**
    * Apply .scrolled class to the body as the page is scrolled down
    */
   function toggleScrolled() {
     const selectBody = document.querySelector('body');
     const selectHeader = document.querySelector('#header');
-    if (!selectHeader.classList.contains('scroll-up-sticky') && !selectHeader.classList.contains('sticky-top') && !selectHeader.classList.contains('fixed-top')) return;
+    if (!selectHeader || (!selectHeader.classList.contains('scroll-up-sticky') && !selectHeader.classList.contains('sticky-top') && !selectHeader.classList.contains('fixed-top'))) return;
     window.scrollY > 100 ? selectBody.classList.add('scrolled') : selectBody.classList.remove('scrolled');
   }
 
@@ -26,11 +49,12 @@
    * Mobile nav toggle
    */
   const mobileNavToggleBtn = document.querySelector('.mobile-nav-toggle');
-
   function mobileNavToogle() {
     document.querySelector('body').classList.toggle('mobile-nav-active');
-    mobileNavToggleBtn.classList.toggle('bi-list');
-    mobileNavToggleBtn.classList.toggle('bi-x');
+    if(mobileNavToggleBtn) {
+      mobileNavToggleBtn.classList.toggle('bi-list');
+      mobileNavToggleBtn.classList.toggle('bi-x');
+    }
   }
   if (mobileNavToggleBtn) {
     mobileNavToggleBtn.addEventListener('click', mobileNavToogle);
@@ -45,7 +69,6 @@
         mobileNavToogle();
       }
     });
-
   });
 
   /**
@@ -61,40 +84,20 @@
   });
 
   /**
-   * Preloader
-   */
-  const preloader = document.querySelector('#preloader');
-  if (preloader) {
-    // Mặc định trình duyệt đợi toàn bộ video 8MB tải xong mới chạy event 'load'
-    // Do đó ta sẽ gỡ preloader sớm ngay khi cấu trúc HTML vừa sẵn sàng để hiển thị luôn
-    document.addEventListener('DOMContentLoaded', () => {
-      setTimeout(() => {
-        if(preloader.parentNode) preloader.remove();
-      }, 100);
-    });
-    
-    window.addEventListener('load', () => {
-      if(preloader.parentNode) preloader.remove();
-    });
-  }
-
-  /**
    * Scroll top button
    */
   let scrollTop = document.querySelector('.scroll-top');
-
   function toggleScrollTop() {
     if (scrollTop) {
       window.scrollY > 100 ? scrollTop.classList.add('active') : scrollTop.classList.remove('active');
     }
   }
-  scrollTop.addEventListener('click', (e) => {
-    e.preventDefault();
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
+  if (scrollTop) {
+    scrollTop.addEventListener('click', (e) => {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     });
-  });
+  }
 
   window.addEventListener('load', toggleScrollTop);
   document.addEventListener('scroll', toggleScrollTop);
@@ -103,23 +106,27 @@
    * Animation on scroll function and init
    */
   function aosInit() {
-    AOS.init({
-      duration: 800,
-      easing: 'ease-out-cubic',
-      once: true,
-      mirror: false,
-      offset: 50, // Khởi động sớm hơn khi vừa chạm
-      disable: window.innerWidth < 768 // Vô hiệu hoá scroll animation trên mobile giúp trải nghiệm mượt, không giật lag
-    });
+    if (typeof AOS !== 'undefined') {
+      AOS.init({
+        duration: 800,
+        easing: 'ease-out-cubic',
+        once: true,
+        mirror: false,
+        offset: 35,
+        disable: window.innerWidth < 768
+      });
+    }
   }
   
-  // Chạy hoạt ảnh ngay khi đọc xong HTML (Không đợi mòn mỏi load xong ảnh/video)
-  document.addEventListener('DOMContentLoaded', aosInit);
+  if (document.readyState === 'interactive' || document.readyState === 'complete') {
+    aosInit();
+  } else {
+    document.addEventListener('DOMContentLoaded', aosInit);
+  }
   
-  // Tính toán lại toạ độ phòng khi ảnh load làm khung hình dịch chuyển
   window.addEventListener('load', () => {
     if (typeof AOS !== 'undefined') {
-      AOS.refresh();
+       setTimeout(() => AOS.refresh(), 400);
     }
   });
 
@@ -128,25 +135,27 @@
    */
   function initSwiper() {
     document.querySelectorAll(".init-swiper").forEach(function (swiperElement) {
-      let config = JSON.parse(
-        swiperElement.querySelector(".swiper-config").innerHTML.trim()
-      );
-
-      if (swiperElement.classList.contains("swiper-tab")) {
-        initSwiperWithCustomPagination(swiperElement, config);
-      } else {
-        new Swiper(swiperElement, config);
-      }
+      try {
+        let config = JSON.parse(
+          swiperElement.querySelector(".swiper-config").innerHTML.trim()
+        );
+        if (swiperElement.classList.contains("swiper-tab")) {
+          initSwiperWithCustomPagination(swiperElement, config);
+        } else {
+          new Swiper(swiperElement, config);
+        }
+      } catch(e) {}
     });
   }
-
-  window.addEventListener("load", initSwiper);
+  document.addEventListener("DOMContentLoaded", initSwiper);
 
   /**
    * Initiate glightbox
    */
-  const glightbox = GLightbox({
-    selector: '.glightbox'
+  document.addEventListener('DOMContentLoaded', () => {
+    if (typeof GLightbox !== 'undefined') {
+      const glightbox = GLightbox({ selector: '.glightbox' });
+    }
   });
 
   /**
@@ -158,46 +167,45 @@
     let sort = isotopeItem.getAttribute('data-sort') ?? 'original-order';
 
     let initIsotope;
-    imagesLoaded(isotopeItem.querySelector('.isotope-container'), function () {
-      initIsotope = new Isotope(isotopeItem.querySelector('.isotope-container'), {
-        itemSelector: '.isotope-item',
-        layoutMode: layout,
-        filter: filter,
-        sortBy: sort
+    if (typeof imagesLoaded !== 'undefined') {
+      imagesLoaded(isotopeItem.querySelector('.isotope-container'), function () {
+        initIsotope = new Isotope(isotopeItem.querySelector('.isotope-container'), {
+          itemSelector: '.isotope-item',
+          layoutMode: layout,
+          filter: filter,
+          sortBy: sort
+        });
       });
-    });
+    }
 
     isotopeItem.querySelectorAll('.isotope-filters li').forEach(function (filters) {
       filters.addEventListener('click', function () {
         isotopeItem.querySelector('.isotope-filters .filter-active').classList.remove('filter-active');
         this.classList.add('filter-active');
-        initIsotope.arrange({
-          filter: this.getAttribute('data-filter')
-        });
-        if (typeof aosInit === 'function') {
-          aosInit();
+        if(initIsotope) {
+          initIsotope.arrange({ filter: this.getAttribute('data-filter') });
         }
+        if (typeof AOS !== 'undefined') { AOS.refresh(); }
       }, false);
     });
-
   });
 
   /**
    * Initiate Pure Counter
    */
-  new PureCounter();
+  if (typeof PureCounter !== 'undefined') { new PureCounter(); }
 
   /**
    * Correct scrolling position upon page load for URLs containing hash links.
    */
   window.addEventListener('load', function (e) {
     if (window.location.hash) {
-      if (document.querySelector(window.location.hash)) {
+      const section = document.querySelector(window.location.hash);
+      if (section) {
         setTimeout(() => {
-          let section = document.querySelector(window.location.hash);
           let scrollMarginTop = getComputedStyle(section).scrollMarginTop;
           window.scrollTo({
-            top: section.offsetTop - parseInt(scrollMarginTop),
+            top: section.offsetTop - parseInt(scrollMarginTop || 0),
             behavior: 'smooth'
           });
         }, 100);
@@ -209,7 +217,6 @@
    * Navmenu Scrollspy
    */
   let navmenulinks = document.querySelectorAll('.navmenu a');
-
   function navmenuScrollspy() {
     navmenulinks.forEach(navmenulink => {
       if (!navmenulink.hash) return;
@@ -228,7 +235,7 @@
   document.addEventListener('scroll', navmenuScrollspy);
 
   /**
-   * Language Switcher
+   * Language Switcher Core Logic
    */
   const langLabels = {
     'vi': '🇻🇳 Tiếng Việt',
@@ -257,103 +264,86 @@
   }
 
   window.googleTranslateElementInit = function() {
-    new google.translate.TranslateElement({
-      pageLanguage: 'vi',
-      includedLanguages: 'vi,lo,th,km',
-      autoDisplay: false
-    }, 'google_translate_element');
-    
-    // We don't need manual timeouts for initial translation
-    // Google Translate reads the googtrans cookie automatically on load!
+    if(typeof google !== 'undefined' && google.translate) {
+      new google.translate.TranslateElement({
+        pageLanguage: 'vi',
+        includedLanguages: 'vi,lo,th,km',
+        autoDisplay: false
+      }, 'google_translate_element');
+    }
   };
 
-  /**
-   * Set Google Translate cookie directly for instant cross-page sync
-   */
+  // Performance: Lazy loading the heavy Google Translate script
+  function loadGoogleTranslateScript() {
+    if(!document.getElementById('google-translate-script')) {
+      const script = document.createElement('script');
+      script.id = 'google-translate-script';
+      script.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+      script.async = true;
+      document.body.appendChild(script);
+    }
+  }
+
   function setLangCookie(lang) {
-    if (lang === 'vi') {
-      // Clear cookies
-      document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-      document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=" + window.location.hostname + ";";
-    } else {
-      // Set cookies
-      const val = "/vi/" + lang;
-      document.cookie = `googtrans=${val}; path=/;`;
-      if (window.location.hostname) {
-        document.cookie = `googtrans=${val}; path=/; domain=${window.location.hostname};`;
-      }
+    const val = (lang === 'vi') ? "" : "/vi/" + lang;
+    const expires = (lang === 'vi') ? "Thu, 01 Jan 1970 00:00:00 UTC" : "";
+    
+    document.cookie = `googtrans=${val}; expires=${expires}; path=/;`;
+    if (window.location.hostname) {
+      document.cookie = `googtrans=${val}; expires=${expires}; path=/; domain=${window.location.hostname};`;
     }
   }
 
   function changeLang(lang) {
     if (!lang) return;
-    
-    // 1. Lưu vào bộ nhớ
     localStorage.setItem("lang", lang);
-    
-    // 2. Cập nhật UI
     updateLangUI(lang);
-    
-    // 3. Ghi đè cookie ngay lập tức để trang sau có thể nhận diện liền
     setLangCookie(lang);
     
-    // 4. Force widget dịch ngay trên trang hiện tại
     const select = document.querySelector(".goog-te-combo");
     if (select) {
       select.value = lang;
       select.dispatchEvent(new Event("change"));
     } else {
-      // Nếu widget chưa load kịp, reload trang để cookie phát huy tác dụng
       window.location.reload();
     }
     
     hideGoogleBanner();
     setTimeout(hideGoogleBanner, 500);
     
-    // Giấu menu trên mobile nếu đang mở
-    const body = document.querySelector('body');
-    if (body && body.classList.contains('mobile-nav-active')) {
-      const toggleBtn = document.querySelector('.mobile-nav-toggle');
-      if (toggleBtn) {
-        body.classList.remove('mobile-nav-active');
-        toggleBtn.classList.remove('bi-x');
-        toggleBtn.classList.add('bi-list');
-      }
+    // Mobile Nav fix
+    if (document.body.classList.contains('mobile-nav-active')) {
+      mobileNavToogle();
     }
   }
 
   window.changeLang = changeLang;
-  window.changeLanguage = changeLang;
 
-  // Xử lý tức thì khi script vừa chạy (trước cả sự kiện load)
-  (function() {
+  // Tối ưu hoá tải dữ liệu ngôn ngữ ngay khi vào
+  (function initLang() {
+    let savedLang = localStorage.getItem("lang") || 'vi';
     const urlParams = new URLSearchParams(window.location.search);
-    const langParam = urlParams.get('lang');
-    let savedLang = localStorage.getItem("lang");
-
-    if (langParam) {
-      savedLang = langParam;
-      localStorage.setItem("lang", langParam);
-      setLangCookie(langParam);
-    } else if (savedLang && savedLang !== 'vi') {
-      // Đảm bảo cookie tồn tại khớp với localStorage để init của Google translate hoạt động trơn tru
+    if (urlParams.get('lang')) {
+      savedLang = urlParams.get('lang');
+      localStorage.setItem("lang", savedLang);
+    }
+    
+    if (savedLang !== 'vi') {
       setLangCookie(savedLang);
     }
-  })();
-
-  window.addEventListener('load', () => {
-    let savedLang = localStorage.getItem("lang") || 'vi';
     
-    // Cập nhật giao diện menu ngôn ngữ
-    updateLangUI(savedLang);
-
-    // Kích hoạt dịch ngay cả khi cookie bị lỗi (trường hợp chạy file:/// local)
-    if (savedLang && savedLang !== 'vi') {
-        applyGoogleTranslate(savedLang);
+    // Cập nhật UI ngay lập tức
+    if(document.readyState === 'loading') {
+       document.addEventListener('DOMContentLoaded', () => updateLangUI(savedLang));
+    } else {
+       updateLangUI(savedLang);
     }
 
-    // Ẩn banner định kỳ để chống hiện tượng xuất hiện lại
-    setInterval(hideGoogleBanner, 500);
-  });
+    // Lazy load the translation API after a small delay
+    window.addEventListener('load', () => {
+      setTimeout(loadGoogleTranslateScript, 1200);
+      setInterval(hideGoogleBanner, 1000);
+    });
+  })();
 
 })();
