@@ -2569,23 +2569,37 @@ body {
 /* Responsive adjustment */
 @media (max-width: 768px) {
   .floating-contact {
-    right: 15px;
-    bottom: 30px;
-    gap: 15px;
+    right: 12px;
+    bottom: 20px;
+    gap: 8px;
   }
   .floating-contact a {
-    width: 60px;
-    height: 60px;
+    width: 42px;
+    height: 42px;
+    font-size: 18px;
   }
   .fc-zalo img {
-    width: 65px;
-    height: 65px;
+    width: 45px;
+    height: 45px;
   }
   .fc-phone {
-    height: 60px;
-    padding: 0 15px 0 12px;
+    height: 42px;
+    min-width: 42px;
+    padding: 0 12px 0 8px;
+    gap: 6px;
+    border-width: 2px !important;
   }
   .fc-phone-number {
-    font-size: 18px;
+    font-size: 13px;
+    font-weight: 700;
+  }
+  /* Scale down tooltips for mobile or hide if needed */
+  .floating-contact a::before {
+    font-size: 11px;
+    padding: 4px 10px;
+    right: 50px;
+  }
+  .floating-contact a:hover::before {
+    right: 55px;
   }
 }
