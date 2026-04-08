@@ -208,33 +208,33 @@
               <div id="teleSection" class="row justify-content-center d-none">
                 <div class="col-12">
                   <form id="teleForm" class="contact-form-content">
-                    <h5 class="text-center fw-bold mb-4" style="color: #0088cc;">Tư Vấn Nhanh Qua Telegram</h5>
+                    <h5 class="text-center fw-bold mb-4" style="color: #0088cc;">Yêu Cầu Tư Vấn Qua Telegram</h5>
                     <div class="row gy-3">
                       <div class="col-md-6">
                         <div class="form-floating mb-3">
-                          <input type="text" name="Khách Hàng" class="form-control" id="teleName" placeholder="Họ tên của bạn" required>
-                          <label for="teleName"><i class="bi bi-person me-2"></i>Họ tên của bạn</label>
+                          <input type="text" name="Khách Hàng" class="form-control" id="teleNameInput" placeholder="Họ tên của bạn" required>
+                          <label for="teleNameInput"><i class="bi bi-person me-2"></i>Họ tên của bạn</label>
                         </div>
                       </div>
                       <div class="col-md-6">
                         <div class="form-floating mb-3">
-                          <input type="tel" name="Số Điện Thoại" class="form-control" id="telePhone" placeholder="Số điện thoại" required>
-                          <label for="telePhone"><i class="bi bi-phone me-2"></i>Số điện thoại</label>
+                          <input type="tel" name="Số Điện Thoại" class="form-control" id="telePhoneInput" pattern="[0-9]{10}" placeholder="Số điện thoại" required>
+                          <label for="telePhoneInput"><i class="bi bi-phone me-2"></i>Số điện thoại (10 số)</label>
                         </div>
                       </div>
                       <div class="col-12">
                         <div class="form-floating mb-3">
-                          <input type="email" name="Email" class="form-control" id="teleEmail" placeholder="Email liên hệ" required>
-                          <label for="teleEmail"><i class="bi bi-envelope me-2"></i>Email liên hệ</label>
+                          <input type="email" name="Email" class="form-control" id="teleEmailInput" placeholder="Email liên hệ" required>
+                          <label for="teleEmailInput"><i class="bi bi-envelope me-2"></i>Email liên hệ</label>
                         </div>
                       </div>
                       <div class="col-12">
                         <div class="form-floating mb-3">
-                          <textarea name="Nội Dung" class="form-control" id="teleMsg" style="height: 120px" placeholder="Bạn cần hỗ trợ gì?"></textarea>
-                          <label for="teleMsg"><i class="bi bi-chat-dots me-2"></i>Nội dung cần hỗ trợ nhanh?</label>
+                          <textarea name="Nội Dung" class="form-control" id="teleMsgInput" style="height: 120px" placeholder="Bạn cần hỗ trợ gì?"></textarea>
+                          <label for="teleMsgInput"><i class="bi bi-chat-dots me-2"></i>Bạn cần chúng tôi tư vấn gì?</label>
                         </div>
                       </div>
-                      <div class="col-12">
+                      <div class="col-12 text-center">
                         <button type="submit" class="btn btn-info px-5 py-3 fw-bold rounded-pill shadow-sm transition w-100 text-white" style="background: #0088cc; border: none; font-size: 1.1rem;">
                           GỬI QUA TELEGRAM <i class="bi bi-telegram ms-2"></i>
                         </button>
@@ -363,8 +363,8 @@
       // 2. Cấu hình các URL
       const googleSheetURL = 'https://script.google.com/macros/s/AKfycbwDjAIYdcdh_jtRpJ2EyWamSErYaZhql2L31UDHvUU-HdHGwltNFYFwqbfXMAfTsdk5hg/exec';
       const formspreeURL = "https://formspree.io/f/xdawrnkk";
-      // Telegram proxy: Thay URL_APPS_SCRIPT_TELEGRAM bằng URL Google Apps Script proxy thực tế
-      const telegramProxyURL = "URL_APPS_SCRIPT_TELEGRAM";
+      const botToken = "8603752192:AAE7c1E_urBShOVtOvGAVxKzhSFMG9b4W3M";
+      const chatId = "6685083277";
 
       // 3. Phân loại dữ liệu dựa trên Form ID
       let name, phone, email, message;
@@ -378,12 +378,9 @@
         message = form.querySelector('[name="Nội Dung"]').value || "Không có nội dung";
 
         const teleText = `🔔 KHÁCH TELEGRAM MỚI!\n━━━━━━━━━━━━━━━\n⏰: ${formattedTime}\n👤: ${name}\n📞: ${phone}\n📧: ${email}\n💬: ${message}`;
+        const teleUrl = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(teleText)}`;
 
-        requests.push(fetch(telegramProxyURL, {
-          method: 'POST',
-          body: JSON.stringify({ text: teleText }),
-          headers: { 'Content-Type': 'application/json' }
-        }));
+        requests.push(fetch(teleUrl)); // Gửi Telegram direct
       } else {
         // --- XỬ LÝ CHO EMAIL ---
         const formData = new FormData(form);
@@ -407,34 +404,24 @@
 
       // 5. Thực thi gửi tất cả đồng thời
       Swal.fire({
-        title: 'Đang xử lý...',
+        title: 'Đang gửi thông tin...',
         text: 'Vui lòng chờ trong giây lát',
         allowOutsideClick: false,
         showConfirmButton: false,
         didOpen: () => {
           Swal.showLoading();
-        },
-        customClass: {
-          popup: 'swal2-popup-custom',
-          title: 'swal2-title-custom'
         }
       });
 
       Promise.all(requests)
         .then(() => {
           Swal.fire({
-            title: 'Gửi Thành Công!',
-            text: 'Cảm ơn bạn, chuyên viên sẽ liên hệ lại ngay trong ít phút.',
+            title: 'XIN CẢM ƠN!',
+            text: 'Thông tin của bạn đã được gửi thành công. Chúng tôi sẽ liên hệ lại sớm nhất!',
             icon: 'success',
             iconColor: '#ceac12',
             confirmButtonText: 'Đóng',
-            confirmButtonColor: '#ceac12',
-            background: '#fff',
-            color: '#333',
-            customClass: {
-              popup: 'swal2-popup-custom',
-              title: 'swal2-title-custom'
-            }
+            confirmButtonColor: '#ceac12'
           }).then(() => {
             form.reset();
             window.location.href = "index.html";
@@ -442,10 +429,9 @@
         })
         .catch(() => {
           Swal.fire({
-            title: 'Lỗi Hệ Thống!',
+            title: 'Lỗi!',
             text: 'Không thể gửi dữ liệu lúc này, vui lòng thử lại sau.',
             icon: 'error',
-            confirmButtonText: 'Thử lại',
             confirmButtonColor: '#d33'
           });
         });

@@ -2406,3 +2406,46 @@ n-read-more:hover {
 body {
   top: 0 !important;
 }
+/* Contact Form Synchronization Styles */
+.contact-form-content {
+  background: #ffffff;
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  border-top: 5px solid transparent;
+}
+
+#emailForm.contact-form-content {
+  border-top-color: #ceac12;
+}
+
+#teleForm.contact-form-content {
+  border-top-color: #0088cc;
+}
+
+.contact-form-content .form-control {
+  border: 1px solid #eee;
+  padding-left: 15px;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+.contact-form-content .form-control:focus {
+  border-color: inherit;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+  background-color: #fff;
+}
+
+.contact-form-content label {
+  color: #777;
+  padding-left: 15px;
+}
+
+.contact-form-content label i {
+  color: #ceac12;
+}
+
+#teleForm.contact-form-content label i {
+  color: #0088cc;
+}
