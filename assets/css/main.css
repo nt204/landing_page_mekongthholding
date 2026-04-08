@@ -2243,6 +2243,7 @@ n-read-more:hover {
   position: relative;
   z-index: 2;
 }
+
 /*--------------------------------------------------------------
 # Sticky Sidebar for Service Pages
 --------------------------------------------------------------*/
@@ -2265,7 +2266,8 @@ n-read-more:hover {
   align-items: center;
   margin-left: 15px;
   flex-shrink: 0;
-  height: 100%; /* Ensure full height of nav area if needed */
+  height: 100%;
+  /* Ensure full height of nav area if needed */
 }
 
 .language-switcher .btn-getstarted {
@@ -2300,7 +2302,7 @@ n-read-more:hover {
   right: 0;
   top: 100%;
   margin-top: 10px;
-  border: 1px solid rgba(0,0,0,0.08);
+  border: 1px solid rgba(0, 0, 0, 0.08);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   transform: translateY(10px) scale(0.95);
   pointer-events: none;
@@ -2366,18 +2368,27 @@ n-read-more:hover {
 }
 
 @media (max-width: 768px) {
-  .icon-box, .service-item {
+
+  .icon-box,
+  .service-item {
     padding: 20px 15px !important;
   }
-  .icon-box h3, .service-item h3, .service-item h4 {
+
+  .icon-box h3,
+  .service-item h3,
+  .service-item h4 {
     font-size: 17px !important;
   }
-  .icon-box i, .service-item .icon i {
+
+  .icon-box i,
+  .service-item .icon i {
     font-size: 26px !important;
   }
-  .icon-box p, .service-item p {
-     font-size: 14px !important;
-     margin-top: 10px !important;
+
+  .icon-box p,
+  .service-item p {
+    font-size: 14px !important;
+    margin-top: 10px !important;
   }
 }
 
@@ -2391,4 +2402,6 @@ n-read-more:hover {
   visibility: hidden !important;
 }
 
-body { top: 0 !important; }
+body {
+  top: 0 !important;
+}
