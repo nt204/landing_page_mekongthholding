@@ -241,7 +241,8 @@
     'vi': '🇻🇳 Tiếng Việt',
     'lo': '🇱🇦 Tiếng Lào',
     'th': '🇹🇭 Tiếng Thái',
-    'km': '🇰🇭 Tiếng Campuchia'
+    'km': '🇰🇭 Tiếng Campuchia',
+    'my': '🇲🇲 Tiếng Myanmar'
   };
 
   function updateLangUI(lang) {
@@ -267,7 +268,7 @@
     if (typeof google !== 'undefined' && google.translate) {
       new google.translate.TranslateElement({
         pageLanguage: 'vi',
-        includedLanguages: 'vi,lo,th,km',
+        includedLanguages: 'vi,lo,th,km,my',
         autoDisplay: false
       }, 'google_translate_element');
 

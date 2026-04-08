@@ -2295,7 +2295,7 @@ n-read-more:hover {
   visibility: hidden;
   position: absolute;
   background: #ffffff;
-  min-width: 180px;
+  min-width: 220px;
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
   z-index: 10000;
   border-radius: 12px;
@@ -2304,7 +2304,7 @@ n-read-more:hover {
   margin-top: 10px;
   border: 1px solid rgba(0, 0, 0, 0.08);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  transform: translateY(10px) scale(0.95);
+  transform: translateY(5px) scale(0.98);
   pointer-events: none;
 }
 
@@ -2335,6 +2335,7 @@ n-read-more:hover {
   gap: 10px;
   font-size: 14px;
   font-weight: 500;
+  white-space: nowrap;
   transition: all 0.2s ease;
 }
 
