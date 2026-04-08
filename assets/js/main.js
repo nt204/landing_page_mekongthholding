@@ -270,6 +270,22 @@
         includedLanguages: 'vi,lo,th,km',
         autoDisplay: false
       }, 'google_translate_element');
+
+      // Sau khi Google Translate init xong, tự động apply ngôn ngữ đã lưu
+      const savedLang = localStorage.getItem('lang') || 'vi';
+      if (savedLang !== 'vi') {
+        let attempts = 0;
+        const applyLang = setInterval(() => {
+          const select = document.querySelector('.goog-te-combo');
+          if (select) {
+            select.value = savedLang;
+            select.dispatchEvent(new Event('change'));
+            clearInterval(applyLang);
+            setTimeout(hideGoogleBanner, 300);
+          }
+          if (++attempts > 20) clearInterval(applyLang);
+        }, 100);
+      }
     }
   };
 
@@ -315,8 +331,12 @@
     if (select) {
       select.value = lang;
       select.dispatchEvent(new Event("change"));
+      setTimeout(hideGoogleBanner, 300);
     } else {
-      window.location.reload();
+      loadGoogleTranslateScript();
+      setTimeout(() => {
+        if (!document.querySelector(".goog-te-combo")) window.location.reload();
+      }, 3000);
     }
 
     hideGoogleBanner();
@@ -350,11 +370,24 @@
       updateLangUI(savedLang);
     }
 
-    // Lazy load the translation API after a small delay
+    // Load Google Translate ngay khi trang sẵn sàng (bỏ delay 1200ms)
     window.addEventListener('load', () => {
-      setTimeout(loadGoogleTranslateScript, 1200);
+      loadGoogleTranslateScript();
       setInterval(hideGoogleBanner, 1000);
     });
   })();
+
+  // Fix dropdown ngôn ngữ cho mobile (Bug #8)
+  const langBtn = document.querySelector('.language-switcher .btn-getstarted');
+  const langDropdown = document.querySelector('.language-switcher .dropdown-content');
+  if (langBtn && langDropdown) {
+    langBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      langDropdown.classList.toggle('show');
+    });
+    document.addEventListener('click', () => {
+      langDropdown.classList.remove('show');
+    });
+  }
 
 })();

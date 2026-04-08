@@ -12,7 +12,7 @@
 --------------------------------------------------------------*/
 /* Fonts */
 :root {
-  --default-font: "Roboto", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --default-font: "Roboto", "Noto Sans Lao", "Noto Sans Thai", "Noto Sans Khmer", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   --heading-font: "Raleway", sans-serif;
   --nav-font: "Poppins", sans-serif;
 }
@@ -1895,12 +1895,14 @@ body {
   overflow: hidden;
   padding: 5px;
   background-color: #fff;
+  height: 400px;
+  width: 100%;
+}
 
-  /* --- CHỈNH ĐỘ TO Ở ĐÂY --- */
-  height: 300px;
-  /* Tăng số này lên nếu muốn cao hơn nữa */
-  width: 300px;
-  /* Đảm bảo rộng hết khung chứa */
+@media (max-width: 768px) {
+  .google-map {
+    height: 280px;
+  }
 }
 
 .google-map iframe {
@@ -2257,13 +2259,6 @@ n-read-more:hover {
 /*--------------------------------------------------------------
 # Language Switcher
 --------------------------------------------------------------*/
-.language-switcher {
-  position: relative;
-  display: inline-block;
-  margin-left: 15px;
-  flex-shrink: 0;
-}
-
 .language-switcher {
   position: relative;
   display: inline-flex;
