@@ -910,20 +910,26 @@ section,
 
 .hero .icon-box {
   padding: 30px 20px;
-  transition: ease-in-out 0.3s;
-  border: 1px solid color-mix(in srgb, var(--default-color), transparent 70%);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid color-mix(in srgb, var(--default-color), transparent 85%);
   height: 100%;
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
 }
 
 .hero .icon-box i {
-  font-size: 32px;
+  font-size: 40px;
   line-height: 1;
   color: var(--accent-color);
+  transition: all 0.3s ease;
+  margin-bottom: 10px;
 }
 
 .hero .icon-box h3 {
@@ -942,6 +948,14 @@ section,
 
 .hero .icon-box:hover {
   border-color: var(--accent-color);
+  transform: translateY(-10px);
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+}
+
+.hero .icon-box:hover i {
+  transform: scale(1.1);
+  color: #fff;
 }
 
 .hero .icon-box:hover h3 a {
@@ -1939,12 +1953,15 @@ body {
 }
 
 .icon-box .btn-read-more:hover {
-  color: #e0b93a;
+  color: #fff;
+  background: var(--accent-color);
+  padding: 5px 20px;
+  border-radius: 20px;
+  margin-top: 10px;
 }
 
 .icon-box .btn-read-more:hover i {
-  transform: translateX(5px);
-  /* Hiệu ứng mũi tên nhích sang phải khi di chuột */
+  transform: translateX(8px);
 }
 
 /*--------------------------------------------------------------
@@ -2601,5 +2618,11 @@ body {
   }
   .floating-contact a:hover::before {
     right: 45px;
+  }
+  /* Adjust Scroll Top to left on mobile */
+  .scroll-top {
+    right: auto;
+    left: 15px;
+    bottom: 20px;
   }
 }
